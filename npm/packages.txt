@@ -1,0 +1,5 @@
+# Global npm packages — one per line.
+# The Makefile `npm` target loops over each line and runs:
+#   npm list -g <pkg> || npm install -g <pkg>
+# Lines starting with # and blank lines are ignored.
+badge-maker

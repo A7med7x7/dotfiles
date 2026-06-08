@@ -1,0 +1,3 @@
+# Managed via uv — run: uv pip install -r requirements.txt
+# Add ML packages here as needed (torch, sklearn, etc.)
+dvc

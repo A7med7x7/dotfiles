@@ -1,0 +1,18 @@
+[user]
+	name = Ahmed
+	email = # placeholder — user fills this in
+
+[core]
+	excludesfile = ~/.gitignore_global
+	editor = vim
+
+[pull]
+	rebase = false
+
+[init]
+	defaultBranch = main
+
+[alias]
+	st = status
+	lg = log --oneline --graph --decorate --all
+	undo = reset HEAD~1 --mixed

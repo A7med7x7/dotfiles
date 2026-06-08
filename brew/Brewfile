@@ -1,0 +1,17 @@
+# Brewfile — declarative Homebrew installs
+# Idempotent: run `brew bundle` to install everything missing.
+
+# Core
+brew "python"
+brew "wget"
+brew "pipx"
+brew "hugo"
+brew "node"
+brew "nload"
+brew "nvtop"
+brew "vim"
+brew "tmux"
+brew "git"
+brew "curl"
+
+# uv is installed separately via its own installer (not brew)
