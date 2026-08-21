@@ -1,0 +1,13 @@
+# ~/.pdbrc — Python debugger configuration
+
+# Print variable values with pretty printer
+alias pp import pprint; pprint.pprint(%1)
+
+# Navigation shortcuts
+alias c continue
+alias n next
+alias s step
+alias l list
+alias r return
+alias u up
+alias d down

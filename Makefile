@@ -2,7 +2,7 @@
 # Every target is idempotent: safe to run multiple times.
 
 SHELL := /bin/bash
-DOTFILES := $(HOME)/dotfiles
+DOTFILES := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # Detect Homebrew prefix (Apple Silicon vs Intel)
 BREW := $(shell command -v brew 2>/dev/null)
@@ -90,11 +90,14 @@ git:
 	git config --global core.excludesfile $(HOME)/.gitignore_global; \
 	printf "✓ Git config linked.\n"
 
-# --- Shell + tmux dotfiles symlinks ---
+# --- Shell, tmux, Python & SQLite dotfiles symlinks ---
 dotfiles:
-	@printf "→ Symlinking shell + tmux dotfiles...\n"; \
+	@printf "→ Symlinking dotfiles...\n"; \
 	ln -sf $(DOTFILES)/zsh/.zshrc $(HOME)/.zshrc; \
 	ln -sf $(DOTFILES)/config/tmux.conf $(HOME)/.tmux.conf; \
+	ln -sf $(DOTFILES)/config/.sqliterc $(HOME)/.sqliterc; \
+	ln -sf $(DOTFILES)/config/.pythonrc $(HOME)/.pythonrc; \
+	ln -sf $(DOTFILES)/config/.pdbrc $(HOME)/.pdbrc; \
 	printf "✓ Dotfiles linked.\n"
 
 # --- Update everything ---

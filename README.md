@@ -117,7 +117,7 @@ Listed one per line in [`npm/packages.txt`](npm/packages.txt):
 npm install -g badge-maker
 ```
 
-### Step 5: Shell, git, and tmux config
+### Step 5: Shell, git, tmux, Python, and SQLite config
 
 Oh My Zsh for the shell framework:
 
@@ -131,6 +131,9 @@ Then symlink the configs into place (this is what `make git` and
 ```bash
 ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
 ln -sf ~/dotfiles/config/tmux.conf ~/.tmux.conf
+ln -sf ~/dotfiles/config/.sqliterc ~/.sqliterc
+ln -sf ~/dotfiles/config/.pythonrc ~/.pythonrc
+ln -sf ~/dotfiles/config/.pdbrc ~/.pdbrc
 ln -sf ~/dotfiles/git/.gitconfig ~/.gitconfig
 ln -sf ~/dotfiles/git/.gitignore_global ~/.gitignore_global
 ```
@@ -172,7 +175,7 @@ If you cloned the repo, every step above also has a make target:
 | `make ohmyzsh` | Installs Oh My Zsh (non-interactive) |
 | `make agents` | Installs the Claude Code CLI |
 | `make git` | Symlinks git config + sets global excludesfile |
-| `make dotfiles` | Symlinks `.zshrc` and `tmux.conf` to home |
+| `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` |
 | `make update` | `brew update && brew upgrade && brew bundle` |
 | `make clean` | Removes broken symlinks from home directory |
 

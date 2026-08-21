@@ -1,0 +1,61 @@
+# ~/.pythonrc — Interactive Python REPL configuration
+# Automatically loaded when starting an interactive Python session (via PYTHONSTARTUP).
+
+import sys
+
+def _setup_pythonrc():
+    # 1. Tab completion & readline history
+    try:
+        import readline
+        import rlcompleter
+        import atexit
+        from pathlib import Path
+
+        # Enable tab completion (handles both GNU readline and macOS libedit)
+        if readline.__doc__ and "libedit" in readline.__doc__:
+            readline.parse_and_bind("bind ^I rl_complete")
+        else:
+            readline.parse_and_bind("tab: complete")
+
+        # History file handling (~/.python_history)
+        history_file = Path.home() / ".python_history"
+        if history_file.is_file():
+            try:
+                readline.read_history_file(str(history_file))
+            except (OSError, UnicodeDecodeError):
+                pass
+
+        def _save_history():
+            try:
+                readline.set_history_length(2000)
+                readline.write_history_file(str(history_file))
+            except OSError:
+                pass
+
+        atexit.register(_save_history)
+    except (ImportError, AttributeError):
+        pass
+
+    # 2. Rich pretty-printing if available
+    try:
+        import rich.pretty
+        rich.pretty.install()
+    except ImportError:
+        pass
+
+
+_setup_pythonrc()
+del _setup_pythonrc
+
+# 3. Common convenience imports for interactive sessions
+try:
+    import os
+    import sys
+    import json
+    import math
+    import re
+    import datetime
+    from pathlib import Path
+    from pprint import pprint as pp
+except ImportError:
+    pass

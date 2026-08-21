@@ -29,7 +29,10 @@ dotfiles/
 │   └── .gitconfig          # Global git config
 │   └── .gitignore_global   # Global gitignore
 ├── config/
-│   └── tmux.conf           # Tmux config
+│   ├── tmux.conf           # Tmux config
+│   ├── .sqliterc           # SQLite CLI config
+│   ├── .pythonrc           # Python REPL startup config
+│   └── .pdbrc              # Python debugger config
 └── README.md               # Usage instructions
 ```
 
@@ -73,7 +76,7 @@ Targets:
 | `make ohmyzsh` | Installs Oh My Zsh if not already installed (non-interactive) |
 | `make agents` | Installs Claude Code CLI |
 | `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile |
-| `make dotfiles` | Symlinks `.zshrc` and `tmux.conf` to home directory |
+| `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` to home directory |
 | `make update` | Runs `brew update && brew upgrade && brew bundle` |
 | `make clean` | Removes broken symlinks from home directory |
 
@@ -218,6 +221,33 @@ A minimal but usable tmux config:
 - Number windows starting from 1
 - Status bar: show session name, window list, date/time
 - Leave a comment block at the top explaining each section
+
+---
+
+### `config/.sqliterc`
+
+SQLite CLI configuration:
+- `.headers on` — Display column names in query results
+- `.mode box` — Display query results as clean unicode box tables
+- `.nullvalue 'NULL'` — Clearly display NULL values
+
+---
+
+### `config/.pythonrc`
+
+Interactive Python startup script (loaded via `PYTHONSTARTUP`):
+- Tab completion setup (supports macOS libedit and GNU readline)
+- Persistent interactive history saved to `~/.python_history`
+- Rich pretty-printing support if installed
+- Convenient auto-imports (`os`, `sys`, `json`, `math`, `re`, `datetime`, `Path`, `pprint`)
+
+---
+
+### `config/.pdbrc`
+
+Python debugger configuration:
+- Pretty printing alias `pp`
+- Common navigation aliases (`c`, `n`, `s`, `l`, `r`, `u`, `d`)
 
 ---
 

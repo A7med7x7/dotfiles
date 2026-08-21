@@ -1,0 +1,13 @@
+-- ~/.sqliterc — SQLite CLI configuration
+
+-- Display column headers in query results
+.headers on
+
+-- Format output as a clean unicode box table
+.mode box
+
+-- Distinguish NULL values from empty strings
+.nullvalue 'NULL'
+
+-- Print elapsed execution time for queries (uncomment if desired)
+-- .timer on

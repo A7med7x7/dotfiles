@@ -23,7 +23,11 @@ alias gc='git commit'
 alias gp='git push'
 alias dotfiles='cd ~/dotfiles'
 
+# === Python & REPL Settings ===
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
 # === Machine Learning ===
 # (reserved for future ML-related env vars, aliases, and paths)
 
 # Add project-specific env vars below this line
+
