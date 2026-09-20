@@ -93,6 +93,7 @@ What that pulls for you:
 | `vim` | Terminal editor |
 | `tmux` | Terminal multiplexer |
 | `git` | Version control |
+| `git-lfs` | Git extension for versioning large files |
 
 ### Step 3: Install the Python packages
 
@@ -174,7 +175,7 @@ If you cloned the repo, every step above also has a make target:
 | `make npm` | Installs global npm packages from `npm/packages.txt` |
 | `make ohmyzsh` | Installs Oh My Zsh (non-interactive) |
 | `make agents` | Installs the Claude Code CLI |
-| `make git` | Symlinks git config + sets global excludesfile |
+| `make git` | Symlinks git config + sets global excludesfile, registers git-lfs |
 | `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` |
 | `make update` | `brew update && brew upgrade && brew bundle` |
 | `make clean` | Removes broken symlinks from home directory |

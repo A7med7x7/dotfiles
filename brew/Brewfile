@@ -12,6 +12,7 @@ brew "nvtop"
 brew "vim"
 brew "tmux"
 brew "git"
+brew "git-lfs"
 brew "curl"
 
 # uv is installed separately via its own installer (not brew)

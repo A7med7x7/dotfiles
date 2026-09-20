@@ -75,7 +75,7 @@ Targets:
 | `make npm` | Installs global npm packages from `npm/packages.txt` |
 | `make ohmyzsh` | Installs Oh My Zsh if not already installed (non-interactive) |
 | `make agents` | Installs Claude Code CLI |
-| `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile |
+| `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile, registers git-lfs (`git lfs install`) |
 | `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` to home directory |
 | `make update` | Runs `brew update && brew upgrade && brew bundle` |
 | `make clean` | Removes broken symlinks from home directory |
@@ -104,6 +104,7 @@ brew "nvtop"
 brew "vim"
 brew "tmux"
 brew "git"
+brew "git-lfs"
 brew "curl"
 
 # uv is installed separately via its own installer (not brew)

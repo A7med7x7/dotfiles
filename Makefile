@@ -88,7 +88,14 @@ git:
 	ln -sf $(DOTFILES)/git/.gitconfig $(HOME)/.gitconfig; \
 	ln -sf $(DOTFILES)/git/.gitignore_global $(HOME)/.gitignore_global; \
 	git config --global core.excludesfile $(HOME)/.gitignore_global; \
-	printf "✓ Git config linked.\n"
+	printf "✓ Git config linked.\n"; \
+	if command -v git-lfs &>/dev/null; then \
+		printf "→ Registering git-lfs...\n"; \
+		git lfs install; \
+		printf "✓ git-lfs registered.\n"; \
+	else \
+		printf "✗ git-lfs not found — skipping (install via 'make brew' first).\n"; \
+	fi
 
 # --- Shell, tmux, Python & SQLite dotfiles symlinks ---
 dotfiles:
