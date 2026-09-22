@@ -7,9 +7,9 @@ DOTFILES := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 # Detect Homebrew prefix (Apple Silicon vs Intel)
 BREW := $(shell command -v brew 2>/dev/null)
 
-.PHONY: all xcode brew uv pip npm ohmyzsh agents git dotfiles update clean
+.PHONY: all xcode brew uv pip npm ohmyzsh agents claude-settings antigravity skills git dotfiles update clean
 
-all: xcode brew uv pip npm ohmyzsh agents git dotfiles
+all: xcode brew uv pip npm ohmyzsh agents claude-settings antigravity skills git dotfiles
 	@printf "\033[0;32m✓ make all complete.\033[0m\n"
 
 # --- Xcode Command Line Tools ---
@@ -80,6 +80,35 @@ agents:
 		curl -fsSL https://claude.ai/install.sh | bash; \
 	else \
 		printf "✓ Claude Code CLI present.\n"; \
+	fi
+
+# --- Claude Code global settings (disable commit/PR attribution) ---
+claude-settings:
+	@printf "→ Configuring Claude Code attribution settings...\n"; \
+	python3 $(DOTFILES)/claude/merge_settings.py; \
+	printf "✓ Claude Code attribution settings linked.\n"
+
+# --- Google Antigravity CLI ---
+antigravity:
+	@if ! command -v antigravity &>/dev/null; then \
+		printf "→ Installing Google Antigravity CLI...\n"; \
+		curl -fsSL https://antigravity.google/cli/install.sh | bash; \
+	else \
+		printf "✓ Google Antigravity CLI present.\n"; \
+	fi
+
+# --- Claude Code skills (non-interactive) ---
+skills:
+	@if command -v npx &>/dev/null; then \
+		printf "→ Installing Claude Code skills...\n"; \
+		while IFS=' ' read -r repo skill; do \
+			[ -z "$$repo" ] && continue; \
+			case "$$repo" in \#*) continue;; esac; \
+			printf "  → npx skills add %s --skill %s\n" "$$repo" "$$skill"; \
+			npx --yes skills add "$$repo" --skill "$$skill" -g -y; \
+		done < $(DOTFILES)/skills/list.txt; \
+	else \
+		printf "✗ npx not found — skipping (install node via brew first).\n"; \
 	fi
 
 # --- Git config symlinks ---

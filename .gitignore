@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Secrets / local overrides
+.env
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+CLAUDE.md

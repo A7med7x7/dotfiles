@@ -1,0 +1,8 @@
+# Claude Code skills — installed non-interactively via:
+#   npx --yes skills add <repo-url> --skill <skill-name> -g -y
+# format: <repo-url> <skill-name>
+https://github.com/mattpocock/skills teach
+https://github.com/mattpocock/skills grill-me
+https://github.com/mattpocock/skills grill-with-docs
+https://github.com/anthropics/skills frontend-design
+https://github.com/vercel-labs/agent-browser agent-browser
