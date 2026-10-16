@@ -7,9 +7,9 @@ DOTFILES := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 # Detect Homebrew prefix (Apple Silicon vs Intel)
 BREW := $(shell command -v brew 2>/dev/null)
 
-.PHONY: all xcode brew uv pip npm ohmyzsh agents claude-settings antigravity skills git dotfiles update clean
+.PHONY: all xcode brew uv pip npm ohmyzsh agents claude-settings claude-md antigravity skills git dotfiles update clean
 
-all: xcode brew uv pip npm ohmyzsh agents claude-settings antigravity skills git dotfiles
+all: xcode brew uv pip npm ohmyzsh agents claude-settings claude-md antigravity skills git dotfiles
 	@printf "\033[0;32m✓ make all complete.\033[0m\n"
 
 # --- Xcode Command Line Tools ---
@@ -87,6 +87,17 @@ claude-settings:
 	@printf "→ Configuring Claude Code attribution settings...\n"; \
 	python3 $(DOTFILES)/claude/merge_settings.py; \
 	printf "✓ Claude Code attribution settings linked.\n"
+
+# --- Claude Code global instructions (~/.claude/CLAUDE.md) ---
+claude-md:
+	@mkdir -p $(HOME)/.claude; \
+	dest=$(HOME)/.claude/CLAUDE.md; src=$(DOTFILES)/claude/CLAUDE.global.md; \
+	if [ -f "$$dest" ] && [ ! -L "$$dest" ] && ! cmp -s "$$dest" "$$src"; then \
+		mv "$$dest" "$$dest.bak"; \
+		printf "→ Existing ~/.claude/CLAUDE.md saved as CLAUDE.md.bak\n"; \
+	fi; \
+	ln -sf "$$src" "$$dest"; \
+	printf "✓ Claude Code global instructions linked.\n"
 
 # --- Google Antigravity CLI ---
 antigravity:

@@ -176,6 +176,7 @@ If you cloned the repo, every step above also has a make target:
 | `make ohmyzsh` | Installs Oh My Zsh (non-interactive) |
 | `make agents` | Installs the Claude Code CLI |
 | `make claude-settings` | Disables Claude's commit/PR attribution trailer in `~/.claude/settings.json` |
+| `make claude-md` | Symlinks `claude/CLAUDE.global.md` to `~/.claude/CLAUDE.md` (an existing different file is kept as `CLAUDE.md.bak`) |
 | `make antigravity` | Installs the Google Antigravity CLI |
 | `make skills` | Installs Claude Code skills listed in `skills/list.txt` (non-interactive) |
 | `make git` | Symlinks git config + sets global excludesfile, registers git-lfs |

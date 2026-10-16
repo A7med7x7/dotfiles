@@ -25,6 +25,12 @@ dotfiles/
 │   └── packages.txt        # Global npm packages (one per line)
 ├── zsh/
 │   └── .zshrc              # Zsh config with Oh My Zsh setup
+├── skills/
+│   └── list.txt            # Claude Code skills (repo URL + skill name per line)
+├── claude/
+│   ├── settings.json       # Keys merged into ~/.claude/settings.json
+│   ├── merge_settings.py   # Does the merge
+│   └── CLAUDE.global.md    # Linked to ~/.claude/CLAUDE.md
 ├── git/
 │   └── .gitconfig          # Global git config
 │   └── .gitignore_global   # Global gitignore
@@ -67,7 +73,7 @@ Targets:
 
 | Target | What it does |
 |--------|-------------|
-| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → antigravity → skills → git → dotfiles |
+| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → claude-settings → claude-md → antigravity → skills → git → dotfiles |
 | `make xcode` | Installs Xcode Command Line Tools if missing |
 | `make brew` | Installs Homebrew if missing, then runs `brew bundle` |
 | `make uv` | Installs uv (Astral's Python package manager) |
@@ -76,6 +82,7 @@ Targets:
 | `make ohmyzsh` | Installs Oh My Zsh if not already installed (non-interactive) |
 | `make agents` | Installs Claude Code CLI |
 | `make claude-settings` | Merges `claude/settings.json` into `~/.claude/settings.json` to disable the commit/PR attribution trailer |
+| `make claude-md` | Links `claude/CLAUDE.global.md` to `~/.claude/CLAUDE.md`, backing up a different existing file as `CLAUDE.md.bak` |
 | `make antigravity` | Installs Google Antigravity CLI if missing |
 | `make skills` | Installs Claude Code skills from `skills/list.txt` non-interactively (`npx --yes skills add <repo> --skill <name> -g -y`) |
 | `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile, registers git-lfs (`git lfs install`) |
@@ -174,6 +181,11 @@ turning off the Co-Authored-By commit trailer and the "Generated with Claude Cod
 `make claude-settings` runs `claude/merge_settings.py`, which merges (not symlinks) this into
 `~/.claude/settings.json`, since Claude Code itself writes other keys to that file. Re-running is
 safe: it always resets `attribution` to this file's value and leaves everything else untouched.
+
+`claude/CLAUDE.global.md` is a copy of the personal `~/.claude/CLAUDE.md`. `make claude-md`
+symlinks it into place, so editing either path edits the repo copy. The file is not called
+`CLAUDE.md` because the repo's `.gitignore` ignores that name. If `~/.claude/CLAUDE.md` already
+exists as a regular file with different content, it is renamed to `CLAUDE.md.bak` first.
 
 ---
 
