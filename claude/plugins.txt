@@ -1,0 +1,4 @@
+# Claude Code plugins, installed with:
+#   claude plugin install <plugin> --marketplace <source> -y
+# format: <plugin-name> <marketplace-source>
+humanizer blader/humanizer

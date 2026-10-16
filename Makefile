@@ -7,9 +7,9 @@ DOTFILES := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 # Detect Homebrew prefix (Apple Silicon vs Intel)
 BREW := $(shell command -v brew 2>/dev/null)
 
-.PHONY: all xcode brew uv pip npm ohmyzsh agents claude-settings claude-md antigravity skills git dotfiles update clean
+.PHONY: all xcode brew uv pip npm ohmyzsh agents claude-settings claude-md plugins antigravity skills git dotfiles update clean
 
-all: xcode brew uv pip npm ohmyzsh agents claude-settings claude-md antigravity skills git dotfiles
+all: xcode brew uv pip npm ohmyzsh agents claude-settings claude-md plugins antigravity skills git dotfiles
 	@printf "\033[0;32m✓ make all complete.\033[0m\n"
 
 # --- Xcode Command Line Tools ---
@@ -98,6 +98,25 @@ claude-md:
 	fi; \
 	ln -sf "$$src" "$$dest"; \
 	printf "✓ Claude Code global instructions linked.\n"
+
+# --- Claude Code plugins (non-interactive) ---
+plugins:
+	@export PATH="$(HOME)/.local/bin:$$PATH"; \
+	if command -v claude &>/dev/null; then \
+		printf "→ Installing Claude Code plugins...\n"; \
+		while IFS=' ' read -r plugin source; do \
+			[ -z "$$plugin" ] && continue; \
+			case "$$plugin" in \#*) continue;; esac; \
+			if claude plugin list 2>/dev/null | grep -q "$$plugin@"; then \
+				printf "✓ %s present.\n" "$$plugin"; \
+			else \
+				printf "  → claude plugin install %s\n" "$$plugin"; \
+				claude plugin install "$$plugin" --marketplace "$$source" -y; \
+			fi; \
+		done < $(DOTFILES)/claude/plugins.txt; \
+	else \
+		printf "✗ claude not found — skipping (run 'make agents' first).\n"; \
+	fi
 
 # --- Google Antigravity CLI ---
 antigravity:

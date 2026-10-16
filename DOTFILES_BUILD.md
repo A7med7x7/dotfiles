@@ -30,6 +30,7 @@ dotfiles/
 ├── claude/
 │   ├── settings.json       # Keys merged into ~/.claude/settings.json
 │   ├── merge_settings.py   # Does the merge
+│   ├── plugins.txt         # Claude Code plugins (plugin name + marketplace per line)
 │   └── CLAUDE.global.md    # Linked to ~/.claude/CLAUDE.md
 ├── git/
 │   └── .gitconfig          # Global git config
@@ -73,7 +74,7 @@ Targets:
 
 | Target | What it does |
 |--------|-------------|
-| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → claude-settings → claude-md → antigravity → skills → git → dotfiles |
+| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → claude-settings → claude-md → plugins → antigravity → skills → git → dotfiles |
 | `make xcode` | Installs Xcode Command Line Tools if missing |
 | `make brew` | Installs Homebrew if missing, then runs `brew bundle` |
 | `make uv` | Installs uv (Astral's Python package manager) |
@@ -83,6 +84,7 @@ Targets:
 | `make agents` | Installs Claude Code CLI |
 | `make claude-settings` | Merges `claude/settings.json` into `~/.claude/settings.json` to disable the commit/PR attribution trailer |
 | `make claude-md` | Links `claude/CLAUDE.global.md` to `~/.claude/CLAUDE.md`, backing up a different existing file as `CLAUDE.md.bak` |
+| `make plugins` | Installs the Claude Code plugins in `claude/plugins.txt` non-interactively (`claude plugin install <plugin> --marketplace <source> -y`) |
 | `make antigravity` | Installs Google Antigravity CLI if missing |
 | `make skills` | Installs Claude Code skills from `skills/list.txt` non-interactively (`npx --yes skills add <repo> --skill <name> -g -y`) |
 | `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile, registers git-lfs (`git lfs install`) |
@@ -181,6 +183,11 @@ turning off the Co-Authored-By commit trailer and the "Generated with Claude Cod
 `make claude-settings` runs `claude/merge_settings.py`, which merges (not symlinks) this into
 `~/.claude/settings.json`, since Claude Code itself writes other keys to that file. Re-running is
 safe: it always resets `attribution` to this file's value and leaves everything else untouched.
+
+`claude/plugins.txt` lists one `<plugin-name> <marketplace-source>` pair per line (currently
+`humanizer blader/humanizer`). `make plugins` skips plugins that `claude plugin list` already
+shows and installs the rest. The humanizer plugin is there because `CLAUDE.global.md` tells
+Claude to run commit messages through it.
 
 `claude/CLAUDE.global.md` is a copy of the personal `~/.claude/CLAUDE.md`. `make claude-md`
 symlinks it into place, so editing either path edits the repo copy. The file is not called

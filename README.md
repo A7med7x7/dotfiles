@@ -177,6 +177,7 @@ If you cloned the repo, every step above also has a make target:
 | `make agents` | Installs the Claude Code CLI |
 | `make claude-settings` | Disables Claude's commit/PR attribution trailer in `~/.claude/settings.json` |
 | `make claude-md` | Symlinks `claude/CLAUDE.global.md` to `~/.claude/CLAUDE.md` (an existing different file is kept as `CLAUDE.md.bak`) |
+| `make plugins` | Installs the Claude Code plugins listed in `claude/plugins.txt` (humanizer) |
 | `make antigravity` | Installs the Google Antigravity CLI |
 | `make skills` | Installs Claude Code skills listed in `skills/list.txt` (non-interactive) |
 | `make git` | Symlinks git config + sets global excludesfile, registers git-lfs |
@@ -190,3 +191,4 @@ If you cloned the repo, every step above also has a make target:
 - Python: add the package to `pip/requirements.txt`, then `make pip`.
 - npm: add the package name to `npm/packages.txt`, then `make npm`.
 - Claude Code skills: add a `<repo-url> <skill-name>` line to `skills/list.txt`, then `make skills`.
+- Claude Code plugins: add a `<plugin-name> <marketplace-source>` line to `claude/plugins.txt`, then `make plugins`.
