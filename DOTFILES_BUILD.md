@@ -67,7 +67,7 @@ Targets:
 
 | Target | What it does |
 |--------|-------------|
-| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → git → dotfiles |
+| `make all` | Runs all targets in order: xcode → brew → uv → pip → npm → ohmyzsh → agents → antigravity → skills → git → dotfiles |
 | `make xcode` | Installs Xcode Command Line Tools if missing |
 | `make brew` | Installs Homebrew if missing, then runs `brew bundle` |
 | `make uv` | Installs uv (Astral's Python package manager) |
@@ -75,6 +75,9 @@ Targets:
 | `make npm` | Installs global npm packages from `npm/packages.txt` |
 | `make ohmyzsh` | Installs Oh My Zsh if not already installed (non-interactive) |
 | `make agents` | Installs Claude Code CLI |
+| `make claude-settings` | Merges `claude/settings.json` into `~/.claude/settings.json` to disable the commit/PR attribution trailer |
+| `make antigravity` | Installs Google Antigravity CLI if missing |
+| `make skills` | Installs Claude Code skills from `skills/list.txt` non-interactively (`npx --yes skills add <repo> --skill <name> -g -y`) |
 | `make git` | Symlinks `.gitconfig` and `.gitignore_global`, sets global excludesfile, registers git-lfs (`git lfs install`) |
 | `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` to home directory |
 | `make update` | Runs `brew update && brew upgrade && brew bundle` |
@@ -135,6 +138,42 @@ badge-maker
 ```
 
 One package per line. Comment at top explaining the install loop used in the Makefile.
+
+---
+
+### `skills/list.txt`
+
+```
+https://github.com/mattpocock/skills teach
+https://github.com/mattpocock/skills grill-me
+https://github.com/mattpocock/skills grill-with-docs
+https://github.com/anthropics/skills frontend-design
+https://github.com/vercel-labs/agent-browser agent-browser
+```
+
+One `<repo-url> <skill-name>` pair per line. Installed non-interactively via
+`npx --yes skills add <repo-url> --skill <skill-name> -g -y` (`-g` global, `-y`/`--yes` skip
+confirmation), looped over by `make skills`, the same way `make npm` loops over
+`npm/packages.txt`.
+
+---
+
+### `claude/settings.json` + `claude/merge_settings.py`
+
+```json
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
+}
+```
+
+`claude/settings.json` holds the desired keys for `~/.claude/settings.json` — currently just
+turning off the Co-Authored-By commit trailer and the "Generated with Claude Code" PR footer.
+`make claude-settings` runs `claude/merge_settings.py`, which merges (not symlinks) this into
+`~/.claude/settings.json`, since Claude Code itself writes other keys to that file. Re-running is
+safe — it always resets `attribution` to this file's value and leaves everything else untouched.
 
 ---
 
@@ -319,5 +358,4 @@ Keep it direct and practical. No fluff.
 - GUI apps / casks (Notion, Chrome, etc.) — user installs those manually
 - SSH key generation — security-sensitive, user does manually  
 - Any credentials, tokens, or API keys
-- antigravity (Google CLI) — unstable install URL, skip for now
 - Any cloud sync or backup configuration

@@ -175,6 +175,9 @@ If you cloned the repo, every step above also has a make target:
 | `make npm` | Installs global npm packages from `npm/packages.txt` |
 | `make ohmyzsh` | Installs Oh My Zsh (non-interactive) |
 | `make agents` | Installs the Claude Code CLI |
+| `make claude-settings` | Disables Claude's commit/PR attribution trailer in `~/.claude/settings.json` |
+| `make antigravity` | Installs the Google Antigravity CLI |
+| `make skills` | Installs Claude Code skills listed in `skills/list.txt` (non-interactive) |
 | `make git` | Symlinks git config + sets global excludesfile, registers git-lfs |
 | `make dotfiles` | Symlinks `.zshrc`, `tmux.conf`, `.sqliterc`, `.pythonrc`, `.pdbrc` |
 | `make update` | `brew update && brew upgrade && brew bundle` |
@@ -185,3 +188,4 @@ If you cloned the repo, every step above also has a make target:
 - **Homebrew:** add a `brew "name"` line to `brew/Brewfile`, then `make brew`.
 - **Python:** add the package to `pip/requirements.txt`, then `make pip`.
 - **npm:** add the package name to `npm/packages.txt`, then `make npm`.
+- **Claude Code skills:** add a `<repo-url> <skill-name>` line to `skills/list.txt`, then `make skills`.
