@@ -1,4 +1,4 @@
-# dotfiles — My macOS Dev Setup
+# dotfiles: my macOS dev setup
 
 One-command macOS dev environment setup (all the brews and pips I actually use).
 
@@ -37,7 +37,7 @@ curl -fsSL https://raw.githubusercontent.com/A7med7x7/dotfiles/main/install.sh |
 It installs the Xcode Command Line Tools, clones this repo to `~/dotfiles`,
 and runs `make all` to set everything up.
 
-## Manual Walkthrough
+## Manual walkthrough
 
 If you would prefer to go step by step (or just want the commands handy), here's the
 same setup done by hand.
@@ -46,7 +46,7 @@ same setup done by hand.
 
 #### Homebrew
 
-The macOS package manager that makes everything else easy:
+The macOS package manager:
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -79,7 +79,7 @@ lot:
 brew bundle --file=brew/Brewfile
 ```
 
-What that pulls for you:
+What that installs:
 
 | Brew | Purpose |
 | --- | --- |
@@ -147,7 +147,7 @@ My CLI agent of choice:
 curl -fsSL https://claude.ai/install.sh | bash
 ```
 
-## Manual Steps After Install
+## Manual steps after install
 
 - Set your git email (the `.gitconfig` ships a placeholder):
 
@@ -161,7 +161,7 @@ curl -fsSL https://claude.ai/install.sh | bash
   exec zsh
   ```
 
-## Make Targets
+## Make targets
 
 If you cloned the repo, every step above also has a make target:
 
@@ -183,9 +183,9 @@ If you cloned the repo, every step above also has a make target:
 | `make update` | `brew update && brew upgrade && brew bundle` |
 | `make clean` | Removes broken symlinks from home directory |
 
-## Adding New Packages
+## Adding new packages
 
-- **Homebrew:** add a `brew "name"` line to `brew/Brewfile`, then `make brew`.
-- **Python:** add the package to `pip/requirements.txt`, then `make pip`.
-- **npm:** add the package name to `npm/packages.txt`, then `make npm`.
-- **Claude Code skills:** add a `<repo-url> <skill-name>` line to `skills/list.txt`, then `make skills`.
+- Homebrew: add a `brew "name"` line to `brew/Brewfile`, then `make brew`.
+- Python: add the package to `pip/requirements.txt`, then `make pip`.
+- npm: add the package name to `npm/packages.txt`, then `make npm`.
+- Claude Code skills: add a `<repo-url> <skill-name>` line to `skills/list.txt`, then `make skills`.

@@ -1,11 +1,11 @@
-# Build My Dotfiles Repo — Claude Code Instructions
+# Build my dotfiles repo: Claude Code instructions
 
 ## Context
 
 This is a personal macOS developer environment setup repo for a CS student / ML engineer.
-The goal: run **one command** on a fresh MacBook and have the entire dev environment restored.
+The goal: run one command on a fresh MacBook and have the entire dev environment restored.
 
-Target machine: **macOS (Apple Silicon + Intel compatible)**
+Target machine: macOS (Apple Silicon and Intel)
 GitHub handle: `A7med7x7`
 Repo name: `dotfiles`
 
@@ -42,7 +42,7 @@ dotfiles/
 
 ### `install.sh`
 
-This is the **single entry point**. Someone on a fresh Mac runs:
+This is the single entry point. Someone on a fresh Mac runs:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/A7med7x7/dotfiles/main/install.sh | bash
@@ -84,7 +84,7 @@ Targets:
 | `make clean` | Removes broken symlinks from home directory |
 
 Requirements:
-- Every target must be **idempotent** — safe to run multiple times
+- Every target must be idempotent, so it is safe to run multiple times
 - Use `@` prefix on commands to suppress echoing
 - Use `$(shell which X)` to check if tools exist before installing
 - Print what each step is doing with emoji-prefixed messages
@@ -169,11 +169,11 @@ confirmation), looped over by `make skills`, the same way `make npm` loops over
 }
 ```
 
-`claude/settings.json` holds the desired keys for `~/.claude/settings.json` — currently just
+`claude/settings.json` holds the desired keys for `~/.claude/settings.json`. Right now that is just
 turning off the Co-Authored-By commit trailer and the "Generated with Claude Code" PR footer.
 `make claude-settings` runs `claude/merge_settings.py`, which merges (not symlinks) this into
 `~/.claude/settings.json`, since Claude Code itself writes other keys to that file. Re-running is
-safe — it always resets `attribution` to this file's value and leaves everything else untouched.
+safe: it always resets `attribution` to this file's value and leaves everything else untouched.
 
 ---
 
@@ -182,7 +182,7 @@ safe — it always resets `attribution` to this file's value and leaves everythi
 A clean `.zshrc` that:
 - Sources Oh My Zsh
 - Sets `ZSH_THEME="robbyrussell"` (default, easy to change)
-- Adds Homebrew to PATH for both Apple Silicon (`/opt/homebrew/bin`) and Intel (`/usr/local/bin`) — detect at runtime
+- Adds Homebrew to PATH for both Apple Silicon (`/opt/homebrew/bin`) and Intel (`/usr/local/bin`), detected at runtime
 - Adds `~/.local/bin` to PATH (for uv-installed tools)
 - Has a clearly marked section `# === Custom Aliases ===` with a few useful ones:
   - `alias ll='ls -la'`
@@ -267,9 +267,9 @@ A minimal but usable tmux config:
 ### `config/.sqliterc`
 
 SQLite CLI configuration:
-- `.headers on` — Display column names in query results
-- `.mode box` — Display query results as clean unicode box tables
-- `.nullvalue 'NULL'` — Clearly display NULL values
+- `.headers on`: display column names in query results
+- `.mode box`: display query results as unicode box tables
+- `.nullvalue 'NULL'`: display NULL values explicitly
 
 ---
 
@@ -325,37 +325,37 @@ Keep it direct and practical. No fluff.
 
 ## Implementation Notes for Claude Code
 
-1. **Idempotency first** — every install step must check before acting. Pattern:
+1. Idempotency first: every install step must check before acting. Pattern:
    ```bash
    if ! command -v brew &>/dev/null; then
      # install
    fi
    ```
 
-2. **Apple Silicon path awareness** — Homebrew installs to `/opt/homebrew` on M1/M2/M3, `/usr/local` on Intel. The `.zshrc` and `install.sh` must handle both.
+2. Apple Silicon path awareness: Homebrew installs to `/opt/homebrew` on M1/M2/M3, `/usr/local` on Intel. The `.zshrc` and `install.sh` must handle both.
 
-3. **Symlink strategy** — `make dotfiles` should symlink, not copy. Pattern:
+3. Symlink strategy: `make dotfiles` should symlink, not copy. Pattern:
    ```bash
    ln -sf ~/dotfiles/zsh/.zshrc ~/.zshrc
    ```
    Use `-f` to force overwrite existing files.
 
-4. **uv over pip** — All Python package installs use `uv pip install`, not `pip install` directly.
+4. uv over pip: all Python package installs use `uv pip install`, not `pip install` directly.
 
-5. **Oh My Zsh non-interactive** — Pass `--unattended` flag and `RUNZSH=no` env var to prevent it from hijacking the shell mid-install.
+5. Oh My Zsh non-interactive: pass the `--unattended` flag and the `RUNZSH=no` env var so it does not take over the shell mid-install.
 
-6. **Claude Code install** — Use the official one-liner:
+6. Claude Code install: use the official one-liner:
    ```bash
    curl -fsSL https://claude.ai/install.sh | bash
    ```
 
-7. **Test the Makefile locally** — After generating, verify `make --dry-run all` runs without syntax errors.
+7. Test the Makefile locally: after generating, verify `make --dry-run all` runs without syntax errors.
 
 ---
 
 ## Out of Scope (Do Not Include)
 
-- GUI apps / casks (Notion, Chrome, etc.) — user installs those manually
-- SSH key generation — security-sensitive, user does manually  
+- GUI apps / casks (Notion, Chrome, etc.): user installs those manually
+- SSH key generation: security-sensitive, user does manually  
 - Any credentials, tokens, or API keys
 - Any cloud sync or backup configuration
