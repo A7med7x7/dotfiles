@@ -161,6 +161,40 @@ curl -fsSL https://claude.ai/install.sh | bash
   exec zsh
   ```
 
+## Personal preferences
+
+Everything in this repo is set up the way I work. If you fork it, go through this list before running `make all`.
+
+Git (`git/.gitconfig`, `git/.gitignore_global`):
+
+- The name is "Ahmed" and the email is blank. Put your own in.
+- vim is the editor, `pull.rebase` is off and new repos start on `main`.
+- Aliases: `st`, `lg` (graph log) and `undo` (soft reset of the last commit).
+- The global ignore file covers macOS junk, Python caches and virtualenvs, editor folders, `.env` and `.python-version`.
+
+Shell (`zsh/.zshrc`):
+
+- Oh My Zsh with the `robbyrussell` theme and the `git` plugin.
+- Aliases: `ll`, `gs`, `gc`, `gp` and `dotfiles` (cd into this repo).
+
+Terminal tools (`config/`):
+
+- tmux uses `Ctrl+a` as the prefix, has the mouse on, uses vi keys in copy mode, numbers windows from 1 and keeps 10000 lines of history.
+- sqlite shows headers, prints results as box tables and shows NULL explicitly.
+- The Python REPL gets tab completion, history and a few auto-imports. pdb gets one-letter aliases (`c`, `n`, `s`, `l`, `r`, `u`, `d`) and `pp`.
+
+Packages (`brew/Brewfile`, `pip/requirements.txt`, `npm/packages.txt`):
+
+- These reflect my work: hugo, nvtop and nload from brew, dvc from pip, badge-maker from npm. Trim or replace them.
+
+Claude Code (`claude/`, `skills/list.txt`):
+
+- `claude/settings.json` turns off the Co-Authored-By trailer on commits and the generated-with footer on pull requests.
+- `claude/CLAUDE.global.md` becomes your `~/.claude/CLAUDE.md`. Mine says to work directly on `main`, commit after every change in small commits, never push unless asked, write commit messages by the [seven rules](https://cbea.ms/git-commit), run them through the humanizer plugin and leave out any attribution lines. Rewrite it for your own habits. An existing different `~/.claude/CLAUDE.md` is kept as `CLAUDE.md.bak`.
+- `claude/plugins.txt` installs the humanizer plugin, which that file refers to. Drop the plugin if you drop the rule.
+- `skills/list.txt` installs five skills I use: teach, grill-me, grill-with-docs, frontend-design and agent-browser.
+- `make antigravity` installs Google's Antigravity CLI. Remove the target from `make all` if you don't want it.
+
 ## Make targets
 
 If you cloned the repo, every step above also has a make target:
