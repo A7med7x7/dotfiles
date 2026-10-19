@@ -50,3 +50,10 @@ These are my personal preferences for every project. A project's own CLAUDE.md c
 
   shields.io can't read private repos, so a private repo uses GitHub's own badge instead (`https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg`).
 - If the GitHub repo has no description, set one with `gh repo edit --description "..."`: one plain sentence saying what the project does, usually the README's tagline.
+
+## Issues
+
+- Track bugs, docs gaps and needed work as GitHub issues. When you find one that the current change doesn't cover, open it with `gh issue create` instead of leaving a TODO in the code or a note in chat.
+- Make one issue per problem. Give it a plain title, and say in the body what is wrong or missing and where to look. For a bug, add the steps to reproduce it.
+- Search first (`gh issue list --search "..."`) so you don't open a duplicate. Add the `bug`, `documentation` or `enhancement` label when the repo has it.
+- Refer to issues as `#123` in commit messages and pull request descriptions. Write `Fixes #123` when the change closes the issue, so GitHub closes it for me when the change lands on the default branch.
