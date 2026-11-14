@@ -158,6 +158,7 @@ https://github.com/mattpocock/skills grill-me
 https://github.com/mattpocock/skills grill-with-docs
 https://github.com/anthropics/skills frontend-design
 https://github.com/vercel-labs/agent-browser agent-browser
+https://github.com/kaankiziltug/logo-design-skill logo-design
 ```
 
 One `<repo-url> <skill-name>` pair per line. Installed non-interactively via
