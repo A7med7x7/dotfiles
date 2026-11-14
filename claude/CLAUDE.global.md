@@ -6,10 +6,15 @@ These are my personal preferences for every project. A project's own CLAUDE.md c
 
 - Check a repo's visibility before the first commit of a session (`gh repo view --json visibility`), and follow the matching rule:
   - **Private repos (for example, my work repos): never commit or push to `main` directly.** Start each piece of work on its own branch (`feature/…`, `fix/…`, `docs/…`), named for what it does. When I say "push", push the branch, open a pull request with `gh pr create`, wait for CI to pass, then merge it with a merge commit (`gh pr merge --merge --delete-branch`) and switch back to an up-to-date `main`. If CI fails, fix it on the branch; don't merge red.
-  - **Public repos:** work directly on `main`. Don't create feature branches unless I ask for one in the chat.
+  - **Public repos:** work directly on `main`, and push right after each commit, without asking first. Don't create feature branches unless I ask for one in the chat.
 - Commit after each change you make during a chat, without asking first. Make small, frequent commits: one logical change per commit.
-- Don't push unless I ask. Committing is fine; pushing is my call. On a private repo, "push" means the full branch → pull request → CI → merge cycle above.
+- On a private repo, don't push unless I ask, or unless the repo's own CLAUDE.md or AGENTS.md says otherwise. There, "push" means the full branch → pull request → CI → merge cycle above.
 - Write pull request descriptions for a reviewer: what changed and why, how it was tested, and anything left to do by hand (a migration to run, a server file to install). Run them through the humanizer skill too.
+- **Hard rules for every commit message and pull request, no exceptions:**
+  - Never write "Generated with Claude Code", "🤖 Generated with [Claude Code]" or any similar line.
+  - Never add a "Co-Authored-By: Claude" trailer, or any other co-author or attribution line for Claude or Anthropic.
+  - Always run the text through the humanizer skill before committing or opening the pull request.
+  - Always follow the seven rules below.
 - Write every commit message by the seven rules at https://cbea.ms/git-commit:
   1. Separate the subject from the body with a blank line.
   2. Keep the subject to 50 characters or less.
@@ -19,7 +24,6 @@ These are my personal preferences for every project. A project's own CLAUDE.md c
   6. Wrap the body at 72 characters.
   7. Use the body to explain what changed and why, not how.
 - Run each commit message through the humanizer skill (`/humanizer:humanizer`) before committing, so it reads like a person wrote it.
-- No attribution or "Co-authored-by" lines in commits.
 
 ## READMEs and Markdown on GitHub
 
