@@ -57,3 +57,16 @@ These are my personal preferences for every project. A project's own CLAUDE.md c
 - Make one issue per problem. Give it a plain title, and say in the body what is wrong or missing and where to look. For a bug, add the steps to reproduce it.
 - Search first (`gh issue list --search "..."`) so you don't open a duplicate. Add the `bug`, `documentation` or `enhancement` label when the repo has it.
 - Refer to issues as `#123` in commit messages and pull request descriptions. Write `Fixes #123` when the change closes the issue, so GitHub closes it for me when the change lands on the default branch.
+
+## Skills
+
+- When I ask for a logo, app icon, favicon, brand mark, visual identity or a theme or design direction for a project, use the `logo-design` skill. Start from its brief and concepts rather than jumping straight to an SVG.
+- Run commit messages and pull request descriptions through the `humanizer` skill, as the Git section says.
+
+## macOS apps
+
+- Every macOS app I build ships with [Sparkle](https://sparkle-project.org) (version 2, added through Swift Package Manager) so users get updates without reinstalling.
+- Check for updates automatically once a day: set `SUEnableAutomaticChecks` to `YES` and `SUScheduledCheckInterval` to `86400` in `Info.plist`, and add a "Check for Updates…" menu item.
+- Serve the feed from the app's own GitHub repo: `SUFeedURL` points at an `appcast.xml` there, and each version's archive is a GitHub Release asset.
+- Sign updates with EdDSA. Put the public key in `Info.plist` as `SUPublicEDKey`; the private key stays in my Keychain or a CI secret, never in the repo.
+- Have the release workflow build the app, run Sparkle's `generate_appcast` and publish the release, so shipping a version updates the feed with no manual steps.
